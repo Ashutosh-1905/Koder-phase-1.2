@@ -153,10 +153,32 @@ const registerSeller = async (req, res) => {
       message: err.message
     })
   }
+};
+
+const getCurrentUser = async(req, res)=> {
+    const u = req.user;
+    if (!u) return res.status(401).json({ message: 'Unauthorized' });
+    res.status(200).json({
+        message: 'current user fetched successfully',
+        user: {
+            id: u._id,
+            username: u.username,
+            email: u.email,
+            fullName: u.fullName,
+            role: u.role
+        }
+    });
+}
+
+const logout = async(req, res) =>{
+    res.cookie('token', '', { maxAge: 0 });
+    res.status(200).json({ message: 'logged out' });
 }
 
 module.exports = {
   registerUser,
   loginUser,
-  registerSeller
+  registerSeller,
+  getCurrentUser,
+  logout
 };
