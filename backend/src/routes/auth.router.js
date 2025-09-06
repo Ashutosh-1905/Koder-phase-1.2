@@ -13,4 +13,4 @@ router.post("/seller/login", loginUser);
 router.get("/me",authUser, getCurrentUser);
 router.post("/logout", logout);
 
-module.exports = router;
+module.exports = router; 
