@@ -2,7 +2,9 @@ const storageService = require("../services/storage.service")
 const productModel = require("../models/product.model")
 
 async function createProduct(req, res) {
-    
+
+      console.log(req.files); 
+
   if (!req.files || req.files.length === 0) {
     return res.status(400).json({ message: "No files uploaded" });
   }

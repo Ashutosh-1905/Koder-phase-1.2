@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SellerRegister.css';
-import './UserRegister.css'; // reuse base auth styles
+// import './UserRegister.css';
+import api from '../api/client';
 
 export default function SellerRegister() {
   const [form, setForm] = useState({
@@ -22,6 +23,18 @@ export default function SellerRegister() {
   function handleSubmit(e) {
     e.preventDefault();
     // UI only – no API logic
+      api.post("/api/auth/seller/register", {
+      username: form.username,
+      fullName: {
+        firstName: form.firstName,
+        lastName: form.lastName
+      },
+      email: form.email,
+      password: form.password
+  }).then(response => {
+      console.log(response.data)
+      navigate('/seller/dashboard');
+    })
   }
 
   function switchRole(nextRole) {
